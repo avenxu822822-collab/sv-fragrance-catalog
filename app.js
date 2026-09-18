@@ -7,10 +7,15 @@ const b64bytes = value => {
   return Uint8Array.from(raw, char => char.charCodeAt(0));
 };
 
-async function decryptCatalog(password) {
+async function decryptCatalog(password, reportStatus = () => {}) {
+  if (!window.crypto || !window.crypto.subtle) {
+    throw new Error('当前浏览器不支持安全解密，请改用手机 Safari 或 Chrome 打开');
+  }
+  reportStatus('正在读取加密资料…');
   const response = await fetch(`./catalog.enc.json?v=${Date.now()}`, { cache: 'no-store' });
   if (!response.ok) throw new Error('加密资料暂时无法读取');
   const bundle = await response.json();
+  reportStatus('正在验证密码…');
   const baseKey = await crypto.subtle.importKey(
     'raw', new TextEncoder().encode(password), 'PBKDF2', false, ['deriveKey']
   );
@@ -148,15 +153,23 @@ function unlock(data) {
 
 $('authForm').addEventListener('submit', async event => {
   event.preventDefault();
-  const password = $('password').value;
-  const button = event.submitter;
+  const password = $('password').value.trim();
+  const button = $('authForm').querySelector('button[type="submit"]');
+  if (!password) {
+    $('authStatus').textContent = '请输入访问密码。';
+    $('password').focus();
+    return;
+  }
   button.disabled = true;
-  $('authStatus').textContent = '正在解密资料…';
+  $('authStatus').textContent = '正在读取加密资料…';
   try {
-    unlock(await decryptCatalog(password));
+    unlock(await decryptCatalog(password, message => { $('authStatus').textContent = message; }));
     $('authStatus').textContent = '';
   } catch (error) {
-    $('authStatus').textContent = error.name === 'OperationError' ? '密码不正确，请重新输入。' : error.message;
+    const wrongPassword = error && (error.name === 'OperationError' || error.name === 'DataError');
+    $('authStatus').textContent = wrongPassword
+      ? '密码不正确，请重新输入。'
+      : `登录失败：${error && error.message ? error.message : '请检查网络后重试'}`;
     $('password').select();
   } finally {
     button.disabled = false;
