@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#120e0a">
+  <meta name="robots" content="noindex, nofollow, noarchive">
+  <title>SV香精资料库</title>
+  <link rel="icon" type="image/png" href="./sv-database-blue.png">
+  <link rel="apple-touch-icon" href="./sv-database-blue.png">
+  <link rel="stylesheet" href="./styles.css">
+</head>
+<body class="locked">
+  <div class="grain"></div>
+
+  <section id="authGate" class="auth-gate" aria-labelledby="authTitle">
+    <div class="auth-card">
+      <img src="./sv-database-blue.png" alt="SV" width="92" height="92">
+      <span class="eyebrow">SCARLET VINCI · TEAM ACCESS</span>
+      <h1 id="authTitle">SV香精资料库</h1>
+      <p>请输入团队密码。资料只会在当前浏览器内解密。</p>
+      <form id="authForm">
+        <label for="password">访问密码</label>
+        <input id="password" type="password" autocomplete="current-password" required autofocus>
+        <button class="primary-button" type="submit">进入资料库</button>
+      </form>
+      <div id="authStatus" class="auth-status" role="status"></div>
+    </div>
+  </section>
+
+  <div id="appShell" hidden>
+    <header class="masthead">
+      <div class="brand-block">
+        <span class="eyebrow">FRAGRANCE INDEX · ENCRYPTED TEAM ARCHIVE</span>
+        <h1>SV香精资料库</h1>
+        <p>供应商香精、原版香水与香调资料库</p>
+      </div>
+      <button id="lockApp" class="outline-button">锁定资料库</button>
+    </header>
+
+    <main>
+      <section class="hero-panel">
+        <div class="search-wrap">
+          <label for="search">查找香精</label>
+          <div class="search-line">
+            <input id="search" type="search" autocomplete="off" placeholder="输入香水名、编码、品牌或香调…">
+            <span class="key-hint">⌘ K</span>
+          </div>
+        </div>
+        <div class="stats" id="stats"></div>
+      </section>
+
+      <section class="workspace">
+        <aside class="filters">
+          <div class="filter-heading"><span>筛选</span><button id="resetFilters">清除</button></div>
+          <label>香精公司<select id="supplier"><option value="">全部公司</option></select></label>
+          <label>产品类别<select id="category"><option value="">全部类别</option></select></label>
+          <label>性别香<select id="gender"><option value="">全部</option></select></label>
+          <label>香型香调<select id="family"><option value="">全部香调</option></select></label>
+          <label>原版品牌<select id="brand"><option value="">全部品牌</option></select></label>
+          <label>核对状态<select id="status">
+            <option value="">全部状态</option>
+            <option>已核对</option><option>待核对</option><option>简称转换待确认</option>
+            <option>品牌提示待确认</option><option>交叉匹配待确认</option><option>数据异常</option>
+          </select></label>
+          <div class="legend"><i></i><p>品牌标准名与原表简称分开保存，便于逐条核对。</p></div>
+        </aside>
+
+        <section class="results-panel">
+          <div class="results-head">
+            <div><span id="resultCount">0</span><small> 条结果</small></div>
+            <div class="pagination"><button id="prev">←</button><span id="pageLabel">1 / 1</span><button id="next">→</button></div>
+          </div>
+          <div id="results" class="results"></div>
+          <div id="empty" class="empty" hidden><b>没有找到</b><span>换一个名称、编码或香调试试。</span></div>
+        </section>
+      </section>
+    </main>
+  </div>
+
+  <dialog id="detailDialog" class="detail-dialog">
+    <button class="dialog-close" data-close="detailDialog">×</button>
+    <div id="detailContent"></div>
+  </dialog>
+
+  <script src="./app.js" defer></script>
+</body>
+</html>

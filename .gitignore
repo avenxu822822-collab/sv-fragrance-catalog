@@ -1,0 +1,5 @@
+catalog.plain.json
+export_catalog.py
+encrypt-data.mjs
+verify-encryption.mjs
+.DS_Store
