@@ -78,12 +78,15 @@ function resultCard(item, index) {
   const subtitle = item.english_name || (item.source_brand ? `原表品牌：${item.source_brand}` : '原表未填品牌');
   const price5 = priceText(item.price_5kg);
   const price1 = priceText(item.price_1kg);
+  const primaryPrice = price5 || price1;
+  const primaryUnit = price5 ? '5KG' : price1 ? '1KG' : '价格';
+  const secondaryPrice = price5 && price1 ? `<small>${esc(price1)} / 1KG</small>` : '';
   return `<article class="result-card" data-id="${item.id}" style="animation-delay:${Math.min(index, 12) * 18}ms">
     <div class="supplier-code"><b>${esc(item.supplier_code || '—')}</b><span>${esc(item.supplier)}</span></div>
     <div class="perfume-name"><h3>${esc(item.name)}</h3><span>${esc(subtitle)}</span></div>
     <div class="family"><b>${esc(family)}</b><span>${esc(item.gender || item.note_position || '性别香待补')}</span></div>
     <div class="brand"><strong>${esc(brand)}</strong><em>${esc(item.verification_status)}</em></div>
-    <div class="price"><strong>${esc(price5 || '待补')}</strong><span>${price5 ? '5KG' : '价格'}</span>${price1 ? `<small>${esc(price1)} / 1KG</small>` : ''}</div>
+    <div class="price"><strong>${esc(primaryPrice || '待补')}</strong><span>${primaryUnit}</span>${secondaryPrice}</div>
     <div class="row-arrow">›</div>
   </article>`;
 }
