@@ -57,7 +57,7 @@ main { padding: 0 clamp(24px, 5vw, 76px) 80px; }
 .pagination { display: flex; align-items: center; gap: 14px; color: var(--muted); font: 12px Georgia, serif; }
 .pagination button { width: 30px; height: 30px; border: 1px solid var(--line); background: transparent; cursor: pointer; }
 .pagination button:disabled { opacity: .25; cursor: default; }
-.result-card { display: grid; grid-template-columns: 110px minmax(220px, 1.35fr) minmax(170px, .9fr) minmax(150px, .75fr) 28px; gap: 20px; align-items: center; padding: 22px 4px; border-bottom: 1px solid var(--line); cursor: pointer; transition: .22s; animation: reveal .35s both; }
+.result-card { display: grid; grid-template-columns: 110px minmax(220px, 1.35fr) minmax(170px, .9fr) minmax(130px, .7fr) 112px 28px; gap: 20px; align-items: center; padding: 22px 4px; border-bottom: 1px solid var(--line); cursor: pointer; transition: .22s; animation: reveal .35s both; }
 .result-card:hover { background: rgba(255,255,255,.38); padding-left: 13px; padding-right: 13px; }
 .supplier-code {
   font-family: "Avenir Next", "Helvetica Neue", Helvetica, sans-serif;
@@ -71,6 +71,10 @@ main { padding: 0 clamp(24px, 5vw, 76px) 80px; }
 .perfume-name span, .family span { display: block; margin-top: 6px; color: var(--muted); font-size: 11px; }
 .brand strong { display: block; font-size: 13px; font-weight: 500; }
 .brand em { display: block; margin-top: 6px; color: var(--amber); font-size: 10px; font-style: normal; }
+.price { font-family: "Avenir Next", "Helvetica Neue", Helvetica, sans-serif; font-variant-numeric: tabular-nums; }
+.price strong { display: inline-block; color: var(--moss); font-size: 14px; font-weight: 650; }
+.price span { margin-left: 5px; color: var(--muted); font-size: 9px; letter-spacing: .06em; }
+.price small { display: block; margin-top: 6px; color: var(--muted); font-size: 10px; }
 .gender-pill { display: inline-block; margin-top: 7px; padding: 3px 8px; border: 1px solid var(--line); border-radius: 20px; font-size: 10px; }
 .row-arrow { font-size: 18px; color: var(--amber); }
 .empty { padding: 90px 0; text-align: center; }
@@ -107,7 +111,7 @@ dialog::backdrop { background: rgba(15, 22, 19, .66); backdrop-filter: blur(6px)
   .workspace { grid-template-columns: 1fr; }
   .filters { position: static; display: grid; grid-template-columns: repeat(2, 1fr); gap: 0 20px; }
   .filter-heading, .legend { grid-column: 1 / -1; }
-  .result-card { grid-template-columns: 85px 1fr 1fr 20px; }
+  .result-card { grid-template-columns: 85px 1fr 1fr 100px 20px; }
   .family { display: none; }
 }
 @media (max-width: 600px) {
@@ -118,8 +122,9 @@ dialog::backdrop { background: rgba(15, 22, 19, .66); backdrop-filter: blur(6px)
   .stat { min-width: 95px; padding: 14px; }
   .filters { grid-template-columns: 1fr; }
   .filter-heading, .legend { grid-column: auto; }
-  .result-card { grid-template-columns: 76px 1fr 18px; gap: 12px; }
+  .result-card { grid-template-columns: 68px 1fr 76px 18px; gap: 10px; }
   .brand { display: none; }
+  .price small { display: none; }
   .detail-grid { grid-template-columns: 1fr; }
   .detail-block.wide { grid-column: auto; }
 }
